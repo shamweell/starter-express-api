@@ -5,6 +5,7 @@ const documentSchema = mongoose.Schema({
     state: { type: String, require: true },
     type: { type: String, require: true },
     createdAt: { type: Date, default: Date.now(), require: true },
+    filePath: { type: String, require: true },
 });
 
 export default mongoose.model("document", documentSchema);

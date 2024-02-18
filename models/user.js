@@ -25,6 +25,7 @@ const userSchema = mongoose.Schema({
     billingFund: { type: String },
     basedIn: { type: String },
     region: { type: String },
+    password: { type: String, require: true },
 });
 
 export default mongoose.model("user", userSchema);

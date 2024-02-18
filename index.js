@@ -6,7 +6,9 @@ import { connectDB } from "./utils/mongodb.js";
 import user from "./routes/user.js";
 import property from "./routes/property.js";
 import document from "./routes/document.js";
-import admin from './routes/admin.js'
+import admin from "./routes/admin.js";
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
 dotenv.config();
@@ -24,10 +26,15 @@ app.use((req, res, next) => {
 });
 app.use(cors());
 
-app.use('/users', user);
-app.use('/properties', property);
-app.use('/documents', document);
-app.use('/admin', admin)
+app.use("/users", user);
+app.use("/properties", property);
+app.use("/documents", document);
+app.use("/admin", admin);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+app.use('/uploads', express.static(resolve(__dirname, 'uploads')));
 
 app.get("/", (req, res) => res.send("App is running"));
 

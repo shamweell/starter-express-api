@@ -5,14 +5,18 @@ import {
     getDocumentById,
     getDocuments,
     updateDocumentById
-} from '../controllers/doucument.js';
+} from '../controllers/document.js';
+
+import multer from 'multer';
+
+const upload = multer({ dest: 'uploads/' })
 
 const router = express.Router();
 
-router.post('/', createDocument); 
+router.post('/', upload.single("file"), createDocument); 
 router.get('/', getDocuments); 
 router.get('/:id', getDocumentById); 
-router.put('/:id', updateDocumentById); 
+router.put('/:id', upload.single("file"), updateDocumentById); 
 router.delete('/:id', deleteDocumentById); 
 
 export default router;
