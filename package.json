@@ -1,0 +1,24 @@
+{
+    "name": "Realcstate-backend",
+    "version": "1",
+    "type": "module",
+    "description": "backend for real state website",
+    "main": "index.js",
+    "repository": "https://github.com/salmansarwarr/Real-state-backend.git",
+    "author": "Muhammad Salman Sarwar <muhammadsalmansarwar32@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "npx nodemon index.js"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.20.2",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.4",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.1.3",
+        "nodemon": "^3.0.3"
+    }
+}
