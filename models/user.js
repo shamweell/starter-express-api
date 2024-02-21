@@ -26,6 +26,9 @@ const userSchema = mongoose.Schema({
     basedIn: { type: String },
     region: { type: String },
     password: { type: String, require: true },
+    createdAt: { type: Date, default: Date.now(), require: true },
+    personalDocs: { type: Array },
+    propertyList: { type: Array },
 });
 
 export default mongoose.model("user", userSchema);
