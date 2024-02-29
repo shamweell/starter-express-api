@@ -11,7 +11,8 @@ const userSchema = mongoose.Schema({
     codeFiscal: { type: String },
     as: { type: String },
     dob: { type: String },
-    surname: { type: String },
+    firstName: { type: String },
+    lastName: { type: String },
     telephone: { type: String },
     email: { type: String },
     villiage: { type: String },
@@ -27,6 +28,7 @@ const userSchema = mongoose.Schema({
     region: { type: String },
     password: { type: String, require: true },
     createdAt: { type: Date, default: Date.now(), require: true },
+    lastUpdated: { type: Date, default: Date.now(), require: true },
     personalDocs: { type: Array },
     propertyList: { type: Array },
 });

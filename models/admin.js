@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
 
 const adminSchema = mongoose.Schema({
-    name: { type: String, require: true},
-    email: { type: String, require: true},
-    password: { type: String, require: true},
+    firstName: { type: String, require: true },
+    email: { type: String, require: true },
+    password: { type: String, require: true },
+    lastName: { type: String },
+    telephone: { type: Number },
+    country: { type: String },
+    region: { type: String },
 });
 
 export default mongoose.model("admin", adminSchema);

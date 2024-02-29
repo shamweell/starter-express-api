@@ -16,8 +16,14 @@ const propertySchema = mongoose.Schema({
     leasing: { type: Boolean, require: true },
     scale: { type: String, require: true },
     owner: { type: String, require: true },
-    lastUpdated: { type: String, require: true },
+    lastUpdated: { type: Date, default: Date.now(), require: true },
     createdAt: { type: Date, default: Date.now(), require: true },
+    userUploadedDocuments: { type: Array },
+    urbanDocuments: { type: Array },
+    landRegistaryDocuments: { type: Array },
+    estimativeDocuments: { type: Array },
+    energyEfficiencyDocuments: { type: Array },
+    anagrafica: { type: Object },
 });
 
 export default mongoose.model("property", propertySchema);

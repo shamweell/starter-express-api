@@ -1,8 +1,11 @@
 import User from "../models/user.js";
+import { sendMail } from "../utils/nodemailer/sendMail.js";
 
 export const createUser = async (req, res) => {
     try {
+        console.log(req.body);
         const newUser = await User.create(req.body);
+        sendMail(newUser);
         res.status(201).json(newUser);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -32,14 +35,18 @@ export const getUserById = async (req, res) => {
 
 export const updateUserById = async (req, res) => {
     try {
-        const updatedUser = await User.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
-        if (!updatedUser) {
+        const user = await User.findById(req.params.id);
+
+        if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
+
+        Object.keys(req.body).forEach((key) => {
+            user[key] = req.body[key];
+        });
+
+        const updatedUser = await user.save();
+
         res.status(200).json(updatedUser);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -58,31 +65,28 @@ export const deleteUserById = async (req, res) => {
     }
 };
 
-export const signIn = async (req, res) => {
-    const { password } = req.body;
+export const insertFile = async (req, res) => {
+    const { id, documentId } = req.params; // Assuming the user ID is provided in the URL parameters
+    const { file } = req; // Assuming the file is uploaded using multer and available in req.file
 
     try {
-        const existingUser = await User.findOne({ email });
+        let user = await User.findById(id);
 
-        if (!existingUser)
-            return res.status(404).json({ message: "User does not exist" });
+        if (!user) {
+            return res.status(404).json({ error: "user not found" });
+        }
 
-        const isPasswordCorrect = await bcrypt.compare(
-            password,
-            existingUser.password
-        );
+        user.personalDocs.find((doc) => doc.id == documentId).filePath =
+            file.path;
 
-        if (!isPasswordCorrect)
-            return res.status(400).json({ message: "Invalid Credentials" });
+        const updateduser = await User.findByIdAndUpdate(id, user);
 
-        const token = jwt.sign(
-            { email: existingUser.email, id: existingUser._id },
-            "test",
-            { expiresIn: "1h" }
-        );
-
-        res.status(200).json({ result: existingUser, token });
+        res.status(200).json({
+            message: "File uploaded successfully",
+            updateduser,
+        });
     } catch (error) {
-        res.status(500).json({ message: "Something went wrong" });
+        console.error("Error uploading file:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
 };

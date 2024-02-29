@@ -4,7 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
-import routes from '../routes/index.js'
+import routes from '../routes/index.js';
 
 const app = express();
 dotenv.config();
@@ -20,13 +20,14 @@ app.use((req, res, next) => {
     );
     next();
 });
-app.use(cors());
+app.use(cors());;
 
 app.use(routes);
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-app.use("/uploads", express.static(resolve(__dirname, "uploads")));
+app.use("/uploads", express.static(resolve(__dirname.slice(0, -7), "uploads")));
 
 export default app;

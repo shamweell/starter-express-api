@@ -5,16 +5,22 @@ import {
     getUserById,
     updateUserById,
     deleteUserById,
+    insertFile,
 } from "../controllers/user.js";
 import auth from '../middleware/auth.js'
-import {validateCreateUser, validateUpdateUserById} from "../middleware/express-validator-user.js"
+import {validateCreateUser, validateUpdateUserById} from "../middleware/user.js"
 
 const router = express.Router();
 
-router.post("/", [auth, validateCreateUser], createUser); 
+import multer from 'multer';
+
+const upload = multer({ dest: 'uploads/' })
+
+router.post("/", auth, validateCreateUser, createUser); 
 router.get("/", getUsers);
 router.get("/:id", getUserById); 
-router.put("/:id", [auth, validateUpdateUserById], updateUserById); 
+router.put("/:id", validateUpdateUserById, updateUserById); 
+router.put('/file/:id/:documentId', upload.single("file"), insertFile);
 router.delete("/:id", auth, deleteUserById); 
 
 export default router;
