@@ -3,9 +3,8 @@ import { sendMail } from "../utils/nodemailer/sendMail.js";
 
 export const createUser = async (req, res) => {
     try {
-        console.log(req.body);
         const newUser = await User.create(req.body);
-        sendMail(newUser);
+        sendMail(req.body);
         res.status(201).json(newUser);
     } catch (error) {
         res.status(400).json({ message: error.message });

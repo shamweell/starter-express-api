@@ -16,7 +16,7 @@ import multer from 'multer';
 
 const upload = multer({ dest: 'uploads/' })
 
-router.post("/", auth, validateCreateUser, createUser); 
+router.post("/", validateCreateUser, createUser); 
 router.get("/", getUsers);
 router.get("/:id", getUserById); 
 router.put("/:id", validateUpdateUserById, updateUserById); 
