@@ -57,43 +57,6 @@ export const insertFile = async (req, res) => {
             return res.status(404).json({ error: "Property not found" });
         }
 
-        // Determine which document array field to update based on the 'field' parameter
-        let documentField;
-        switch (field) {
-            case "userUploadedDocuments":
-                documentField = property.userUploadedDocuments;
-                break;
-            case "urbanDocuments":
-                documentField = property.urbanDocuments;
-                break;
-            case "landRegistaryDocuments":
-                documentField = property.landRegistaryDocuments;
-                break;
-            case "estimativeDocuments":
-                documentField = property.estimativeDocuments;
-                break;
-            case "energyEfficiencyDocuments":
-                documentField = property.energyEfficiencyDocuments;
-                break;
-            default:
-                return res
-                    .status(400)
-                    .json({ error: "Invalid document field" });
-        }
-
-        // Add the uploaded file to the selected document array
-        // Find the existing document object within the document array based on the 'documentId' parameter
-        const existingDocument = documentField.find(
-            (doc) => doc.id == documentId
-        ); // Assuming documentId is the unique identifier of the document
-
-        if (!existingDocument) {
-            return res.status(404).json({ error: "Document not found" });
-        }
-
-        // Update the filePath property of the existing document object
-        existingDocument.filePath = file.path;
-
         switch (field) {
             case "userUploadedDocuments":
                 property.userUploadedDocuments.find(
@@ -128,6 +91,8 @@ export const insertFile = async (req, res) => {
 
         // Save the updated property object
         // property = await property.save();
+
+        console.log(property);
     
         const updatedProperty = await Property.findByIdAndUpdate(id, property);
 

@@ -64,6 +64,21 @@ export const deleteUserById = async (req, res) => {
     }
 };
 
+export const getUserByEmail = async (req, res) => {
+    try {
+        const email = req.params.email;
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 export const insertFile = async (req, res) => {
     const { id, documentId } = req.params; // Assuming the user ID is provided in the URL parameters
     const { file } = req; // Assuming the file is uploaded using multer and available in req.file

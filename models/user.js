@@ -31,6 +31,7 @@ const userSchema = mongoose.Schema({
     lastUpdated: { type: Date, default: Date.now(), require: true },
     personalDocs: { type: Array },
     propertyList: { type: Array },
+    image: { type: String },
 });
 
 export default mongoose.model("user", userSchema);
