@@ -12,7 +12,6 @@ export const sendMail = async (user) => {
     try {
         const result = await mailjet.post("send").request({
             FromEmail: 'landapp.card@gmail.com',
-            FromName: 'Your Name',
             Subject: 'Welcome to the Land Id',
             'Text-part': 'Welcome to the land id application, your password will be at your address soon.',
             'Html-part': 'Welcome to the land id application, your password will be at your address soon.',
