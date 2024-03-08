@@ -5,6 +5,7 @@ import User from "../models/user.js";
 export const signIn = async (req, res) => {
     const { email, password } = req.body;
 
+    console.log(email)
     try {
         const existingAdmin = await Admin.findOne({ email });
 
