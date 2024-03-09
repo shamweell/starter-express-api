@@ -58,6 +58,11 @@ export const signIn = async (req, res) => {
 export const sendCode = async (req, res) => {
     const code = Math.floor(10000 + Math.random() * 90000);
 
+    const existingAdmin = await Admin.findOne({ email: req.body.email });
+
+    if (!existingAdmin)
+        return res.status(404).json({ message: "Admin does not exist" });
+
     await createVerificationCode({email: req.body.email, verificationCode: code});
 
     await sendMail({

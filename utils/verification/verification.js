@@ -1,4 +1,4 @@
-import AuthModel from "../../models/auth";
+import AuthModel from "../../models/auth.js";
 
 // Create operation
 export const createVerificationCode = async ({ email, verificationCode }) => {
