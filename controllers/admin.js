@@ -33,6 +33,22 @@ export const getAdminById = async (req, res) => {
     }
 };
 
+export const getAdminByEmail = async (req, res) => {
+    const { email } = req.body;
+    console.log(email);
+
+    try {
+        const admin = await Admin.findOne({ email });
+        if (admin) {
+            res.status(200).json(admin);
+        } else {
+            res.status(404).json({ message: "Admin not found" });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 export const updateAdmin = async (req, res) => {
     try {
         const updatedAdmin = await Admin.findByIdAndUpdate(

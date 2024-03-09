@@ -3,7 +3,7 @@ import AuthModel from "../../models/auth.js";
 // Create operation
 export const createVerificationCode = async ({ email, verificationCode }) => {
     try {
-        const newAuth = new AuthModel.create({ email, verificationCode });
+        const newAuth = new AuthModel({ email, code: parseInt(verificationCode) });
         await newAuth.save();
         return newAuth;
     } catch (error) {
@@ -27,10 +27,7 @@ export const getVerificationCodesByEmail = async (email) => {
 // Delete operation
 export const deleteVerificationCodeByEmail = async (email) => {
     try {
-        await AuthModel.findOneAndUpdate(
-            { email },
-            { $set: { verificationCode: null } }
-        );
+        await AuthModel.deleteOne({ email });
 
         return {
             message: "Verification codes deleted successfully",

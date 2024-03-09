@@ -63,10 +63,10 @@ export const sendCode = async (req, res) => {
     const code = Math.floor(10000 + Math.random() * 90000);
 
     try {
-        // const existingAdmin = await Admin.findOne({ email: req.body.email });
+        const existingAdmin = await Admin.findOne({ email: req.body.email });
 
-        // if (!existingAdmin)
-        //     return res.status(404).json({ message: "Admin does not exist" });
+        if (!existingAdmin)
+            return res.status(404).json({ message: "Admin does not exist" });
 
         await createVerificationCode({
             email: req.body.email,
@@ -90,7 +90,7 @@ export const verifyCode = async (req, res) => {
     const { code, email } = req.body;
     try {
         const existingCode = await getVerificationCodesByEmail(email);
-        if (code !== existingCode) {    
+        if (parseInt(code) !== parseInt(existingCode.code)) {    
             res.status(400).json({ result: false });
         } else {
             await deleteVerificationCodeByEmail(email);
