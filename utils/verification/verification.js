@@ -3,7 +3,7 @@ import AuthModel from "../../models/auth.js";
 // Create operation
 export const createVerificationCode = async ({ email, verificationCode }) => {
     try {
-        const newAuth = new AuthModel({ email, verificationCode });
+        const newAuth = new AuthModel.create({ email, verificationCode });
         await newAuth.save();
         return newAuth;
     } catch (error) {
