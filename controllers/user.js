@@ -90,6 +90,8 @@ export const insertFile = async (req, res) => {
     const { id, documentId } = req.params; // Assuming the user ID is provided in the URL parameters
     const { file } = req; // Assuming the file is uploaded using multer and available in req.file
 
+    console.log(file);
+
     try {
         let user = await User.findById(id);
 
@@ -98,7 +100,7 @@ export const insertFile = async (req, res) => {
         }
 
         user.personalDocs.find((doc) => doc.id == documentId).filePath =
-            file.path;
+            file.key;
 
         const updateduser = await User.findByIdAndUpdate(id, user);
 

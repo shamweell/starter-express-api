@@ -61,27 +61,27 @@ export const insertFile = async (req, res) => {
             case "userUploadedDocuments":
                 property.userUploadedDocuments.find(
                     (doc) => doc.id == documentId
-                ).filePath = file.path;
+                ).filePath = file.key;
                 break;
             case "urbanDocuments":
                 property.urbanDocuments.find(
                     (doc) => doc.id == documentId
-                ).filePath = file.path;
+                ).filePath = file.key;
                 break;
             case "landRegistaryDocuments":
                 property.landRegistaryDocuments.find(
                     (doc) => doc.id == documentId
-                ).filePath = file.path;
+                ).filePath = file.key;
                 break;
             case "estimativeDocuments":
                 property.estimativeDocuments.find(
                     (doc) => doc.id == documentId
-                ).filePath = file.path;
+                ).filePath = file.key;
                 break;
             case "energyEfficiencyDocuments":
                 property.energyEfficiencyDocuments.find(
                     (doc) => doc.id == documentId
-                ).filePath = file.path;
+                ).filePath = file.key;
                 break;
             default:
                 return res
